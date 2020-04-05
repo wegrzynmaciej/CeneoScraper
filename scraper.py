@@ -39,5 +39,19 @@ except IndexError:
     purchase_date = None
 
 
-print(opinion_id, author, recommendation, stars, content,
-      cons, pros, useful, useless, opinion_date, purchase_date)
+features = {
+    "opinion_id": opinion_id,
+    "author": author,
+    "recommendation": recommendation,
+    "stars": stars,
+    "content": content,
+    "cons": cons,
+    "pros": pros,
+    "useful": useful,
+    "useless": useless,
+    "opinion_date": opinion_date,
+    "purchase_date": purchase_date
+}
+
+
+print(features)
