@@ -26,3 +26,7 @@
 - Transformacja i wyczyszczenie danych
 - Refaktoring kodu
 - Parametryzacja
+## Etap 5
+- Wczytanie opinii do ramki danych
+- Policzenie podstawowych statystyk
+- Narysowanie wykresów funkcji
