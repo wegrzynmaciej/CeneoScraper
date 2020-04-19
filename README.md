@@ -27,3 +27,4 @@
 - Refaktoring kodu
 - Parametryzacja
 
+Jeśli się pojawiło to SSH działa
