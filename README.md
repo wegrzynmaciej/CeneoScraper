@@ -26,3 +26,4 @@
 - Transformacja i wyczyszczenie danych
 - Refaktoring kodu
 - Parametryzacja
+
