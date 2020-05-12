@@ -13,7 +13,6 @@ mccabe==0.6.1
 numpy==1.18.2
 pandas==1.0.3
 pep8==1.7.1
-pkg-resources==0.0.0
 pprint==0.1
 pylint==2.4.4
 pyparsing==2.4.7
