@@ -37,8 +37,8 @@ selectors = {
     "recommendation": ["span.user-post__author-recomendation > em"],
     "stars": ["span.user-post__score-count"],
     "content": ["div.user-post__text"], # naprawione
-    "cons": ["div.review-feature__title--negatives ~ div"], # nie działa
-    "pros": ["div.review-feature__title--positives ~ div"], # nie działa
+    "cons": ["div.review-feature__title--negatives ~ div"], # naprawione
+    "pros": ["div.review-feature__title--positives ~ div"], # naprawione
     "useful": ["button.vote-yes > span"],
     "useless": ["button.vote-no > span"],
     "opinion_date": ["span.user-post__published > time:nth-child(1)", "datetime"],
