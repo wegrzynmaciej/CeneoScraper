@@ -24,16 +24,16 @@ def replace_formatting(selector):
 
 # słownik z selektorami
 selectors = {
-    "author": ["div.reviewer-name-line"],
-    "recommendation": ["div.product-review-summary > em"],
-    "stars": ["span.review-score-count"],
-    "content": ["p.product-review-body"],
-    "cons": ["div.cons-cell > ul"],
-    "pros": ["div.pros-cell > ul"],
+    "author": ["span.user-post__author-name"],
+    "recommendation": ["span.user-post__author-recomendation > em"],
+    "stars": ["span.user-post__score-count"],
+    "content": ["div.user-post__text"],
+    "cons": ["div.review-feature > div.review-feature__col:nth-child(2) > div.review-feature__item"], # do zmiany, nie zadziała jak są tylko wady/zalety
+    "pros": ["div.review-feature > div.review-feature__col:nth-child(1) > div.review-feature__item"], # do zmiany, nie zadziała jak są tylko wady/zalety
     "useful": ["button.vote-yes > span"],
     "useless": ["button.vote-no > span"],
-    "opinion_date": ["span.review-time > time:nth-child(1)", "datetime"],
-    "purchase_date": ["span.review-time > time:nth-child(2)", "datetime"]
+    "opinion_date": ["span.user-post__published > time:nth-child(1)", "datetime"],
+    "purchase_date": ["span.user-post__published > time:nth-child(2)", "datetime"]
 }
 
 # Adres URL pierwszej strony z opiniami o produkcie
@@ -52,7 +52,7 @@ while url:
     page_dom = BeautifulSoup(response.text, "html.parser")
 
     # Wyciągnięcie z kodu strony fragmentów odpowiadających poszczególym opiniom
-    opinions = page_dom.select("li.js_product-review")
+    opinions = page_dom.select("div.js_product-review")
 
     # Dla wszystkich opinii z danej strony wydobycie ich składowych
     for opinion in opinions:
