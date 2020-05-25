@@ -3,7 +3,6 @@ import requests
 from bs4 import BeautifulSoup
 import pprint
 import json
-import re
 
 # funkcja do ekstrakcji składowych opinii
 
@@ -11,38 +10,30 @@ import re
 def extract_feature(opinion, selector, attribute=None):
     try:
         if attribute:
-            return opinion.select(selector).pop(0)[attribute].strip()
-        elif "review-feature__title" in selector:
-            return opinion.select(selector)
+            return opinion.select(selector).pop()[attribute].strip()
         else:
-            return opinion.select(selector).pop(0).text.strip()
+            return opinion.select(selector).pop().text.strip()
     except IndexError:
         return None
 
-def replace_formatting(element, flag=False):
+def replace_formatting(selector):
     try:
-        if flag:
-            if not element:
-                return None
-            else:
-                return ", ".join([x.text for x in element])
-        else:
-            return element.replace("\n", ", ").replace("\r", ", ")
+        return selector.replace("\n", ", ").replace("\r", ", ")
     except AttributeError:
-        return element
+        return selector
 
 # słownik z selektorami
 selectors = {
-    "author": ["span.user-post__author-name"], # naprawione
-    "recommendation": ["span.user-post__author-recomendation > em"],
-    "stars": ["span.user-post__score-count"],
-    "content": ["div.user-post__text"], # naprawione
-    "cons": ["div.review-feature__title--negatives ~ div"], # nie działa
-    "pros": ["div.review-feature__title--positives ~ div"], # nie działa
+    "author": ["div.reviewer-name-line"],
+    "recommendation": ["div.product-review-summary > em"],
+    "stars": ["span.review-score-count"],
+    "content": ["p.product-review-body"],
+    "cons": ["div.cons-cell > ul"],
+    "pros": ["div.pros-cell > ul"],
     "useful": ["button.vote-yes > span"],
     "useless": ["button.vote-no > span"],
-    "opinion_date": ["span.user-post__published > time:nth-child(1)", "datetime"],
-    "purchase_date": ["span.user-post__published > time:nth-child(2)", "datetime"]
+    "opinion_date": ["span.review-time > time:nth-child(1)", "datetime"],
+    "purchase_date": ["span.review-time > time:nth-child(2)", "datetime"]
 }
 
 # Adres URL pierwszej strony z opiniami o produkcie
@@ -61,10 +52,9 @@ while url:
     page_dom = BeautifulSoup(response.text, "html.parser")
 
     # Wyciągnięcie z kodu strony fragmentów odpowiadających poszczególym opiniom
-    opinions = page_dom.select("div.js_product-review") #bierze też komentarze, nie wiadomo czemu
+    opinions = page_dom.select("li.js_product-review")
 
     # Dla wszystkich opinii z danej strony wydobycie ich składowych
-    
     for opinion in opinions:
         features = {key: extract_feature(opinion, *args)
                     for key, args in selectors.items()}
@@ -73,8 +63,8 @@ while url:
         features["useless"] = int(features["useless"])
         features["stars"] = float(features["stars"].split("/")[0].replace(",", "."))
         features["content"] = features["content"].replace("\n", " ").replace("\n", " ")
-        features["pros"] = replace_formatting(features["pros"], True)
-        features["cons"] = replace_formatting(features["cons"],True)
+        features["pros"] = replace_formatting(features["pros"])
+        features["cons"] = replace_formatting(features["cons"])
         all_opinions.append(features)
     try:
         url = url_prefix + page_dom.select("a.pagination__next").pop()["href"]
@@ -82,6 +72,7 @@ while url:
         url = None
     print(len(all_opinions))
     print(url)
+
 with open("opinions_json/"+product_id+".json", "w", encoding="UTF-8") as fp:
     json.dump(all_opinions, fp, indent=4, ensure_ascii=False)
 
