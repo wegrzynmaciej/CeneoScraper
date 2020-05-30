@@ -27,7 +27,7 @@ def replace_formatting(element, flag=False):
             else:
                 return ", ".join([x.text for x in element])
         else:
-            return element.replace("\n", ", ").replace("\r", ", ")
+            return element.replace("\n", " ").replace("\r", " ")
     except AttributeError:
         return element
 
@@ -72,7 +72,7 @@ while url:
         features["useful"] = int(features["useful"])
         features["useless"] = int(features["useless"])
         features["stars"] = float(features["stars"].split("/")[0].replace(",", "."))
-        features["content"] = features["content"].replace("\n", " ").replace("\n", " ")
+        features["content"] = replace_formatting(features["content"])
         features["pros"] = replace_formatting(features["pros"], True)
         features["cons"] = replace_formatting(features["cons"],True)
         all_opinions.append(features)
