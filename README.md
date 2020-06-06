@@ -2,7 +2,7 @@
 ## Etap 1 - Analiza struktury opinii w serwisie [Ceneo](https://ceneo.pl)
 |Składowa             |Selektor                                            |Nazwa zmiennej|
 |---------------------|----------------------------------------------------|--------------|
-|Opinia               |`div.js-product-review`                              |`opinion`
+|Opinia               |`div.js-product-review`                             |`opinion`
 |Identyfikator opinii |`["data-entry-id"]`                                 |`opinion_id`
 |Autor                |`span.user-post__author-name`                       |`author`
 |Rekomendacja         |`span.user-post__author-recomendation > em`         |`recommendation`
@@ -14,6 +14,8 @@
 |Nieprzydatna         |`button.vote-no > span`                             |`useless`
 |Data wystawienia     |`span.review-time > time:first-child["datetime"]`   |`opinion_date`
 |Data zakupu          |`span.review-time > time:nth-child(2)["datetime"]`  |`purchase_date`
+
+
 ## Etap 2 - Pobranie składowych pojedynczej opinii
 - Pobranie kodu jednej strony z opiniami o konkretnym produkcie
 - Wyciągnięcie z kodu strony fragmentów odpowiadających poszczególym opiniom
@@ -34,10 +36,11 @@
 >   /CeneoScraper/
 >>      /run.py
 >>      /config.py
->>      /app
+>>      /app/
 >>>         /__init__.py
 >>>         /views.py
 >>>         /models.py
+>>>         /forms.py
 >>>         /static/
 >>>>            /main.css
 >>>>            /figures_png/

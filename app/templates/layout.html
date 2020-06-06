@@ -15,19 +15,23 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+        
 </head>
 
 <body>
-    <header class='jumbotron text-center'>
+    <header class='jumbotron container text-center'>
         <h1>Ceneo Scraper</h1>
     </header>
-    <nav class="container navbar navbar-expand-lg navbar-dark bg-dark rounded">
-        <a href="/index" class="navbar-brand">Strona główna</a>
-        <a href="/opinions" class="navbar-brand">Pobierz opinie</a>
-        <a href="/products" class="navbar-brand">Wyświetl produkty</a>
-        <a href="/about" class="navbar-brand">O projekcie</a>
+    <nav class="container navbar navbar-expand-lg navbar-dark bg-dark rounded sticky-top">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Strona główna</a>
+        <a class="navbar-brand" href="{{ url_for('extract') }}" >Pobierz opinie</a>
+        <a class="navbar-brand" href="{{ url_for('products') }}" >Wyświetl produkty</a>
+        <a class="navbar-brand" href="{{ url_for('about') }}" >O projekcie</a>
     </nav>
-    <div class="container">
+    <div class="container pt-5 pb-5">
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 {% block content %}
@@ -36,7 +40,13 @@
             </div>
         </div> 
     </div>
-    <footer>(c) Maciej Węgrzyn, Uniwersytet Ekonomiczny w Krakowie</footer>
+    <footer class="container navbar navbar-expand-lg navbar-dark bg-dark justify-content-center rounded fixed-bottom">
+        <div class="navbar-brand mb-0">
+            (c) Maciej Węgrzyn, Uniwersytet Ekonomiczny w Krakowie
+        </div>
+    </footer>
 </body>
 
 </html>
+{% block scripts %}
+{% endblock %}
