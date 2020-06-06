@@ -40,7 +40,7 @@ def product(id):
         'product.html',
         tables=[
             opinions.to_html(
-                classes="table table-hover",
+                classes="table table-hover table-responsive",
                 table_id="opinions",
                 index=False
             )
